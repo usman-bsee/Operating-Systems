@@ -22,8 +22,8 @@ int main()
 	//time_t startTime = time(NULL);
 	printf("Ending Time(seconds): %lu\t", tv1.tv_sec);
 	printf("Ending Time(Micro-seconds): %d\n", tv1.tv_usec);
-	int finalTime = tv1.tv_usec - tv.tv_usec;
-	printf("\nFinal overhead time(Micro-seconds): %d\n", finalTime);
+	float finalTime = tv1.tv_usec - tv.tv_usec;
+	printf("\nFinal overhead time(Micro-seconds): %f\n", finalTime/10000);
 
 	return 0;
 }
