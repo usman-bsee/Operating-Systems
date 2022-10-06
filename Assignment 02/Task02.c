@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/time.h>
 int main(void)
 {
 	int pipefd1[2], pipefd2[2];
@@ -13,6 +14,8 @@ int main(void)
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
+	struct timeval tv; struct timezone tz;
+	gettimeofday(&tv, &tz);
 	pid_t pid= fork();
 	if(pid == 0)
 	{
@@ -26,6 +29,10 @@ int main(void)
 			printf("\tChild Write: %s\n", Cpin);
 			sleep(1);
 		}
+		struct timeval tv1; struct timezone tz1;
+		gettimeofday(&tv1, &tz1);
+		float finalTime = tv1.tv_usec - tv.tv_usec;
+		printf("\nChild Final overhead time(Micro-seconds): %f\n", finalTime/iterations);
 	}
 	if(pid > 0)
 	{
@@ -39,6 +46,10 @@ int main(void)
 			printf("Parent Read: %s\n", buffer);
 			sleep(1);
 		}
+		struct timeval tv1; struct timezone tz1;
+		gettimeofday(&tv1, &tz1);
+		float finalTime = tv1.tv_usec - tv.tv_usec;
+		printf("\nParent Final overhead time(Micro-seconds): %f\n", finalTime/iterations);
 	}
 	return 0;
 }
