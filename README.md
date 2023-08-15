@@ -93,7 +93,7 @@ You'll see the login page of the airflow. The default username and password is `
 
 Create two new files in the directory `dags` and save them as `choose_best_model.py` and `training_model.py`.
 ### Choose Best Model
-Create a new python file with the following code:
+Paste the following code into `choose_best_model.py`
 ```
 def _choose_best_model(ti):
     accuracies = ti.xcom_pull(task_ids=[
@@ -108,7 +108,7 @@ def _choose_best_model(ti):
         return "inaccurate"
 ```
 ### Training Model
-Create a new python file with the following code:
+Paste the following code into `training_model.py`
 ```
 from random import randint
 
